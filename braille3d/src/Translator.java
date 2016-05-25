@@ -1,4 +1,4 @@
-import token.ru.BrailleTokenRu;
+import BrailleFont.ru.BrailleTokenRu;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,11 +22,9 @@ public class Translator {
         this.inputText = text;
     }
 
-    public void convertTextToSVG() {
-        List<BrailleTokenRu> brailleLine = new ArrayList<BrailleTokenRu>();
+    public void convertToSVG() {
 
-        for (int i=0; i<this.inputText.length(); i++) {
-            if (
+        for (int i=0; i<this.inputText.length(); i+=10) {
         }
     }
 
