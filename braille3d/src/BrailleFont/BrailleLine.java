@@ -8,16 +8,23 @@ import java.util.List;
  */
 public class BrailleLine {
 
-    private int lineNumber;
+    private final int symbols = 10;
     private List<BrailleToken> brailleTokens;
 
-    public BrailleLine(int lineNumber) {
+    public BrailleLine() {
         this.brailleTokens = new ArrayList<>();
-        this.lineNumber = lineNumber;
     }
 
     public void add(BrailleToken brailleToken) {
         this.brailleTokens.add(brailleToken);
+    }
+
+    public int getSymbolsCount() {
+        return symbols;
+    }
+
+    public List<BrailleToken> getBrailleTokens() {
+        return this.brailleTokens;
     }
 }
 

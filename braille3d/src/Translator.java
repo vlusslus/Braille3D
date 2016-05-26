@@ -1,4 +1,6 @@
-import BrailleFont.ru.BrailleTokenRu;
+import BrailleFont.BrailleLine;
+import BrailleFont.BrailleTable;
+import BrailleFont.BrailleToken;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,8 +26,23 @@ public class Translator {
 
     public void convertToSVG() {
 
-        for (int i=0; i<this.inputText.length(); i+=10) {
+        BrailleTable brailleTable = new BrailleTable();
+        int rest = brailleTable.getLinesCount() - this.inputText.length()%brailleTable.getLinesCount();
+        for(int restIndex=0; restIndex<rest; restIndex++) {
+            this.inputText += "/";
         }
+
+        for (int tableIndex=0; tableIndex<this.inputText.length(); tableIndex+=brailleTable.getLinesCount()) {
+            BrailleLine brailleLine = new BrailleLine();
+            for(int lineIndex=0; lineIndex<brailleLine.getSymbolsCount(); lineIndex++) {
+                int position = tableIndex + lineIndex;
+                brailleLine.add(new BrailleToken(this.inputText.substring(position, position + 1)));
+            }
+            brailleTable.add(brailleLine);
+        }
+        brailleTable.print();
     }
+
+
 
 }

@@ -15,4 +15,8 @@ public class BrailleToken {
         this.svg = SvgBuilder.buildSvg(symbol);
     }
 
+    public String getSymbol() {
+        return this.symbol;
+    }
+
 }
