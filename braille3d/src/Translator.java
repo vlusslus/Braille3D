@@ -29,7 +29,7 @@ public class Translator {
         BrailleTable brailleTable = new BrailleTable();
         int rest = brailleTable.getLinesCount() - this.inputText.length()%brailleTable.getLinesCount();
         for(int restIndex=0; restIndex<rest; restIndex++) {
-            this.inputText += "/";
+            this.inputText += "~";
         }
 
         for (int tableIndex=0; tableIndex<this.inputText.length(); tableIndex+=brailleTable.getLinesCount()) {

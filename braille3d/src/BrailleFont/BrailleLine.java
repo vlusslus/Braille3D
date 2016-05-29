@@ -12,7 +12,7 @@ public class BrailleLine {
     private List<BrailleToken> brailleTokens;
 
     public BrailleLine() {
-        this.brailleTokens = new ArrayList<>();
+        this.brailleTokens = new ArrayList<BrailleToken>();
     }
 
     public void add(BrailleToken brailleToken) {

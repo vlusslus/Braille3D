@@ -15,7 +15,7 @@ public class BrailleTable {
     private List<BrailleLine> brailleLines;
 
     public BrailleTable() {
-        this.brailleLines = new ArrayList<>();
+        this.brailleLines = new ArrayList<BrailleLine>();
     }
 
     public void add(BrailleLine brailleLine) {

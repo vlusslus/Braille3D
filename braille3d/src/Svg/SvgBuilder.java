@@ -25,9 +25,9 @@ public class SvgBuilder {
 
     public String buildSvg(String symbol) {
         //Пока непонятно как внедрить символ "Следуюший заглавный". Нужно пересматривать архитектуры таблицы.
-        switch (new String(symbol.toLowerCase())) {
+        /*switch (new String(symbol.toLowerCase())) {
             case "а":
-        }
+        }*/
         return symbol;
     }
 
