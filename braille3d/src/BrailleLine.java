@@ -1,5 +1,3 @@
-package BrailleFont;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +6,6 @@ import java.util.List;
  */
 public class BrailleLine {
 
-    private final int symbols = 10;
     private List<BrailleToken> brailleTokens;
 
     public BrailleLine() {
@@ -17,10 +14,6 @@ public class BrailleLine {
 
     public void add(BrailleToken brailleToken) {
         this.brailleTokens.add(brailleToken);
-    }
-
-    public int getSymbolsCount() {
-        return symbols;
     }
 
     public List<BrailleToken> getBrailleTokens() {

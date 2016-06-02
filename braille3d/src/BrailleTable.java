@@ -1,9 +1,4 @@
-package BrailleFont;
-
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -11,7 +6,6 @@ import java.util.List;
  */
 public class BrailleTable {
 
-    private final int lines = 10;
     private List<BrailleLine> brailleLines;
 
     public BrailleTable() {
@@ -20,10 +14,6 @@ public class BrailleTable {
 
     public void add(BrailleLine brailleLine) {
         this.brailleLines.add(brailleLine);
-    }
-
-    public int getLinesCount() {
-        return lines;
     }
 
     public void print() {

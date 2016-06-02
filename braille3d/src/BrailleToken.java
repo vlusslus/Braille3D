@@ -1,7 +1,3 @@
-package BrailleFont;
-
-import Svg.SvgBuilder;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +7,12 @@ import java.util.List;
  */
 public class BrailleToken {
 
+
     private String symbol;
     private List<CirclesPosition> circlesPositions;
 
     public BrailleToken(String symbol) {
+        //getParams();
         this.symbol = symbol.toLowerCase();
         this.circlesPositions = new ArrayList<CirclesPosition>();
         try{
@@ -44,6 +42,19 @@ public class BrailleToken {
     public String getSymbol() {
         return this.symbol;
     }
+
+    /*private void getParams() {
+        ConfigReader configReader = new ConfigReader();
+        try {
+            configReader.getConfig(System.getProperty("user.dir") + "\\config\\token.cfg");
+            this.circleRadio = configReader.getParamByName("circle_radio");
+            this.circlesRatio = configReader.getParamByName("circles_ratio");
+            this.widthRatio = configReader.getParamByName("width_ratio");
+            this.heigthRatio = configReader.getParamByName("heigth_ratio");
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }*/
 
     private class CirclesPosition {
 
