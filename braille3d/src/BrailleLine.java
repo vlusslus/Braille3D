@@ -6,7 +6,12 @@ import java.util.List;
  */
 public class BrailleLine {
 
+    private int number;
     private List<BrailleToken> brailleTokens;
+
+    public int getNumber() {
+        return number;
+    }
 
     public BrailleLine() {
         this.brailleTokens = new ArrayList<BrailleToken>();

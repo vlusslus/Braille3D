@@ -16,6 +16,10 @@ public class BrailleTable {
         this.brailleLines.add(brailleLine);
     }
 
+    public List<BrailleLine> getBrailleLines() {
+        return brailleLines;
+    }
+
     public void print() {
         for(int i=0; i<this.brailleLines.size(); i++) {
             System.out.print("Line #" + i + ": ");

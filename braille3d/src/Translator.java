@@ -23,6 +23,8 @@ public class Translator {
 
     public void convertToSVG() {
 
+        String svg = new String();
+
         int linesCount = (int)config.getParamByName("lines_count");
         int symbolsCount = (int)config.getParamByName("tokens_count");
         double circleRadio = config.getParamByName("circle_radio");
@@ -51,6 +53,19 @@ public class Translator {
         /*for(int index=0; index<this.inputText.length(); index+=linesCount*symbolsCount) {
 
         }*/
+
+        double currentVerticalPos = 0;
+        double currentHorizontalPos = 0;
+
+        for(BrailleLine line: brailleTable.getBrailleLines()) {
+            for(BrailleToken token:line.getBrailleTokens()) {
+                for(int circle=0; circle < token.getCirclesPositions().size(); circle++) {
+                    this.svg = "<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />"
+                }
+
+            }
+        }
+
     }
 
 

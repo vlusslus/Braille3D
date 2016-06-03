@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class BrailleToken {
 
-
+    private int number;
     private String symbol;
     private List<CirclesPosition> circlesPositions;
 
@@ -39,10 +39,17 @@ public class BrailleToken {
         }
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     public String getSymbol() {
         return this.symbol;
     }
 
+    public List<CirclesPosition> getCirclesPositions() {
+        return circlesPositions;
+    }
     /*private void getParams() {
         ConfigReader configReader = new ConfigReader();
         try {
