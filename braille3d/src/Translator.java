@@ -9,6 +9,16 @@ public class Translator {
     private String inputText;
     private String svg;
 
+    private int linesCount;
+    private int symbolsCount;
+    private double circleRadio;
+    private double circlesRatio;
+    private double widthRatio;
+    private double heigthRatio;
+
+
+
+
     public Translator(File inputFile) throws IOException{
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile), "UTF-8"));
         String text = "";
@@ -19,18 +29,19 @@ public class Translator {
         bufferedReader.close();
         this.inputText = text;
         this.config = new ConfigReader(System.getProperty("user.dir") + "//braille.params");
+
+        this.linesCount = (int)config.getParamByName("lines_count");
+        this.symbolsCount = (int)config.getParamByName("tokens_count");
+        this.circleRadio = config.getParamByName("circle_radio");
+        this.circlesRatio = config.getParamByName("circles_ratio");
+        this.widthRatio = config.getParamByName("width_ratio");
+        this.heigthRatio = config.getParamByName("heigth_ratio");
     }
 
     public void convertToSVG() {
 
         String svg = new String();
 
-        int linesCount = (int)config.getParamByName("lines_count");
-        int symbolsCount = (int)config.getParamByName("tokens_count");
-        double circleRadio = config.getParamByName("circle_radio");
-        double circlesRatio = config.getParamByName("circles_ratio");
-        double widthRatio = config.getParamByName("width_ratio");
-        double heigthRatio = config.getParamByName("heigth_ratio");
 
 
 
@@ -54,18 +65,59 @@ public class Translator {
 
         }*/
 
-        double currentVerticalPos = 0;
-        double currentHorizontalPos = 0;
+        double currentVerticalPos = 100;
+        double currentHorizontalPos = 100;
+
+        int tokenIndex = 0;
+        int lineIndex = 0;
 
         for(BrailleLine line: brailleTable.getBrailleLines()) {
             for(BrailleToken token:line.getBrailleTokens()) {
-                for(int circle=0; circle < token.getCirclesPositions().size(); circle++) {
-                    this.svg = "<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />"
+                for(int circleIndex=0; circleIndex < token.getCirclesPositions().size(); circleIndex++) {
+                    this.svg += "<circle " +
+                            "cx=\"" + (int)getCX(tokenIndex, token.getCirclesPositions().get(circleIndex).getXPosition()) + "\"" +
+                            "cy=\"" + (int)getCY(lineIndex, token.getCirclesPositions().get(circleIndex).getYPosition()) + "\"" +
+                            "r=\"" +  (int)circleRadio + "\" " +
+                            "stroke=\"black\" " +
+                            "stroke-width=\"1\" " +
+                            "fill=\"black\" />";
                 }
+                currentHorizontalPos += widthRatio;
+                tokenIndex++;
+            }
+            lineIndex++;
+            currentVerticalPos += heigthRatio;
+        }
 
+
+        File svgFile = new File("C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\out.txt");
+        if(svgFile.exists()) {
+            try{
+                FileWriter fw = new FileWriter(svgFile);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(this.svg);
+                bw.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         }
 
+        /*try{
+            Runtime.getRuntime("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\out.svg");
+        }*/
+
+
+    }
+
+    private double getCX(int tokenIndex, int circleX) {
+
+        return tokenIndex * (this.widthRatio + 2 * this.circleRadio + this.circlesRatio) + (circleX - 1) * (this.circlesRatio + this.circleRadio);
+
+    }
+
+    private double getCY(int lineIndex, int circleY) {
+
+        return lineIndex * (this.heigthRatio + 3 * this.circleRadio + 2 * this.circleRadio) + (circleY - 1) * (this.circlesRatio + this.circleRadio);
     }
 
 

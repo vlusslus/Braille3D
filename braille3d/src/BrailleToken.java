@@ -63,7 +63,8 @@ public class BrailleToken {
         }
     }*/
 
-    private class CirclesPosition {
+
+    public class CirclesPosition {
 
         private int xPosition;
         private int yPosition;
@@ -77,14 +78,13 @@ public class BrailleToken {
             }
         }
 
-        public int getxPosition() {
+        public int getXPosition() {
             return xPosition;
         }
 
-        public void setxPosition(int xPosition) {
-            this.xPosition = xPosition;
+        public int getYPosition() {
+            return yPosition;
         }
-
     }
 
 }
