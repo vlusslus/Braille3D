@@ -6,18 +6,20 @@ import java.util.List;
  */
 public class BrailleLine {
 
-    private int number;
+    private int index;
     private List<BrailleToken> brailleTokens;
 
-    public int getNumber() {
-        return number;
+    public int getIndex() {
+        return index;
     }
 
     public BrailleLine() {
+        index = 0;
         this.brailleTokens = new ArrayList<BrailleToken>();
     }
 
     public void add(BrailleToken brailleToken) {
+        index++;
         this.brailleTokens.add(brailleToken);
     }
 

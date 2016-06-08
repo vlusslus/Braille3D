@@ -72,15 +72,28 @@ public class Translator {
         int lineIndex = 0;
 
         for(BrailleLine line: brailleTable.getBrailleLines()) {
+            tokenIndex = 0;
             for(BrailleToken token:line.getBrailleTokens()) {
+                this.svg += "<rect " +
+                        "x=\"" + (int)getRX(tokenIndex) + "\" " +
+                        "y=\"" + (int)getRY(lineIndex) + "\" " +
+                        "width=\"" + (int)(this.widthRatio + 1 * this.circleRadio + this.circlesRatio) + "\" " +
+                        "height=\"" + (int)(this.heigthRatio + 2 * this.circleRadio + 2 * this.circlesRatio) + "\" " +
+                        "style=\"fill:none;stroke:black;stroke-width:5\" />";
                 for(int circleIndex=0; circleIndex < token.getCirclesPositions().size(); circleIndex++) {
                     this.svg += "<circle " +
-                            "cx=\"" + (int)getCX(tokenIndex, token.getCirclesPositions().get(circleIndex).getXPosition()) + "\"" +
-                            "cy=\"" + (int)getCY(lineIndex, token.getCirclesPositions().get(circleIndex).getYPosition()) + "\"" +
+                            "cx=\"" + (int)getCX(tokenIndex, token.getCirclesPositions().get(circleIndex).getXPosition()) + "\" " +
+                            "cy=\"" + (int)getCY(lineIndex, token.getCirclesPositions().get(circleIndex).getYPosition()) + "\" " +
                             "r=\"" +  (int)circleRadio + "\" " +
                             "stroke=\"black\" " +
                             "stroke-width=\"1\" " +
-                            "fill=\"black\" />";
+                            "fill=\"black\" /> ";
+                    /*this.svg += "<rect " +
+                            "x=\"" + (int)getRX(tokenIndex) + "\" " +
+                            "y=\"" + (int)getRY(lineIndex) + "\" " +
+                            "width=\"" + (int)(this.widthRatio + 1 * this.circleRadio + this.circlesRatio) + "\" " +
+                            "height=\"" + (int)(this.heigthRatio + 2 * this.circleRadio + 2 * this.circlesRatio) + "\" " +
+                            "style=\"fill:none;stroke:black;stroke-width:5\" />";*/
                 }
                 currentHorizontalPos += widthRatio;
                 tokenIndex++;
@@ -111,13 +124,21 @@ public class Translator {
 
     private double getCX(int tokenIndex, int circleX) {
 
-        return tokenIndex * (this.widthRatio + 2 * this.circleRadio + this.circlesRatio) + (circleX - 1) * (this.circlesRatio + this.circleRadio);
+        return this.widthRatio/2 + tokenIndex * (this.widthRatio + 2 * this.circleRadio + this.circlesRatio) + (circleX - 1) * (this.circlesRatio + this.circleRadio);
 
     }
 
     private double getCY(int lineIndex, int circleY) {
 
-        return lineIndex * (this.heigthRatio + 3 * this.circleRadio + 2 * this.circleRadio) + (circleY - 1) * (this.circlesRatio + this.circleRadio);
+        return this.heigthRatio/2 + lineIndex * (this.heigthRatio + 3 * this.circleRadio + 2 * this.circlesRatio) + (circleY - 1) * (this.circlesRatio + this.circleRadio);
+    }
+
+    private double getRX(int tokenIndex) {
+        return tokenIndex * (this.widthRatio + 2 * this.circleRadio + this.circlesRatio);
+    }
+
+    private double getRY(int lineIndex) {
+        return lineIndex * (this.heigthRatio + 3 * this.circleRadio + 2 * this.circlesRatio);
     }
 
 

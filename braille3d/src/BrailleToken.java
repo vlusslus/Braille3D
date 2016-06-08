@@ -7,11 +7,12 @@ import java.util.List;
  */
 public class BrailleToken {
 
-    private int number;
+    private int index;
     private String symbol;
     private List<CirclesPosition> circlesPositions;
 
     public BrailleToken(String symbol) {
+        this.index = 0;
         //getParams();
         this.symbol = symbol.toLowerCase();
         this.circlesPositions = new ArrayList<CirclesPosition>();
@@ -39,8 +40,8 @@ public class BrailleToken {
         }
     }
 
-    public int getNumber() {
-        return number;
+    public int getIndex() {
+        return this.index;
     }
 
     public String getSymbol() {
