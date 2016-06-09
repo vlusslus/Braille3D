@@ -42,8 +42,17 @@ public class Translator {
 
         String svg = new String();
 
+        this.inputText = this.inputText.substring(1, this.inputText.length());
+
+        this.inputText = this.inputText.replace(" ", "_");
+
+        for(int textIndex=0; textIndex < this.inputText.length(); textIndex++) {
+            String checkingSimbol = this.inputText.substring(textIndex, textIndex +1);
+            this.inputText.replace(checkingSimbol, checkSymbol(checkingSimbol));
+        }
 
 
+        System.out.println(this.inputText);
 
         BrailleTable brailleTable = new BrailleTable();
         int rest = linesCount - this.inputText.length()%linesCount;
@@ -103,7 +112,7 @@ public class Translator {
         }
 
 
-        File svgFile = new File("C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\out.txt");
+        /*File svgFile = new File("C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\out.txt");
         if(svgFile.exists()) {
             try{
                 FileWriter fw = new FileWriter(svgFile);
@@ -113,7 +122,7 @@ public class Translator {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        }*/
 
         /*try{
             Runtime.getRuntime("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\out.svg");
@@ -139,6 +148,14 @@ public class Translator {
 
     private double getRY(int lineIndex) {
         return lineIndex * (this.heigthRatio + 3 * this.circleRadio + 2 * this.circlesRatio);
+    }
+
+    private String checkSymbol(String checkingSymbol) {
+
+        if(Character.isUpperCase(checkingSymbol.codePointAt(0))) {
+            return "@" + checkingSymbol;
+        }
+        return "";
     }
 
 
