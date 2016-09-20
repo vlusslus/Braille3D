@@ -38,12 +38,18 @@ public class Translator {
         this.heigthRatio = config.getParamByName("heigth_ratio");
     }
 
-    public void convertToSVG() {
+    public void convertToSVG() throws IOException{
 
         String svg = new String();
 
+        String brailleTableParams = new String();
+        brailleTableParams += "400 150 10 10 5" + System.getProperty("line.separator");
 
-
+        File paramsFile = new File("C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\outparams.txt");
+        FileWriter fw = new FileWriter(paramsFile);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(brailleTableParams);
+        brailleTableParams = null;
 
         BrailleTable brailleTable = new BrailleTable();
         int rest = linesCount - this.inputText.length()%linesCount;
@@ -81,9 +87,13 @@ public class Translator {
                         "height=\"" + (int)(this.heigthRatio + 2 * this.circleRadio + 2 * this.circlesRatio) + "\" " +
                         "style=\"fill:none;stroke:black;stroke-width:5\" />";
                 for(int circleIndex=0; circleIndex < token.getCirclesPositions().size(); circleIndex++) {
+                    int cx = (int)getCX(tokenIndex, token.getCirclesPositions().get(circleIndex).getXPosition());
+                    int cy = (int)getCY(lineIndex, token.getCirclesPositions().get(circleIndex).getYPosition());
+                    brailleTableParams = (cx + " " + cy + System.getProperty("line.separator"));
+                    bw.write(brailleTableParams);
                     this.svg += "<circle " +
-                            "cx=\"" + (int)getCX(tokenIndex, token.getCirclesPositions().get(circleIndex).getXPosition()) + "\" " +
-                            "cy=\"" + (int)getCY(lineIndex, token.getCirclesPositions().get(circleIndex).getYPosition()) + "\" " +
+                            "cx=\"" + cx + "\" " +
+                            "cy=\"" + cy + "\" " +
                             "r=\"" +  (int)circleRadio + "\" " +
                             "stroke=\"black\" " +
                             "stroke-width=\"1\" " +
@@ -102,14 +112,26 @@ public class Translator {
             currentVerticalPos += heigthRatio;
         }
 
+        bw.close();
+        /*File paramsFile = new File("C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\outparams.txt");
+        if(paramsFile.exists()) {
+            try{
+                FileWriter fw = new FileWriter(paramsFile);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(brailleTableParams);
+                bw.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }*/
 
         File svgFile = new File("C:\\Users\\vlusslus\\IdeaProjects\\Braille3D\\out.txt");
         if(svgFile.exists()) {
             try{
-                FileWriter fw = new FileWriter(svgFile);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(this.svg);
-                bw.close();
+                FileWriter fw2 = new FileWriter(svgFile);
+                BufferedWriter bw2 = new BufferedWriter(fw2);
+                bw2.write(this.svg);
+                bw2.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -125,7 +147,6 @@ public class Translator {
     private double getCX(int tokenIndex, int circleX) {
 
         return this.widthRatio/2 + tokenIndex * (this.widthRatio + 2 * this.circleRadio + this.circlesRatio) + (circleX - 1) * (this.circlesRatio + this.circleRadio);
-
     }
 
     private double getCY(int lineIndex, int circleY) {
